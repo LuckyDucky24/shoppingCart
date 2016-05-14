@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <title>Shopping Cart Javascript</title>
+    <style>
+    .boxed {border: 1px solid black}
+    </style>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script>
+    $(function(){
+     var arr = ["one","two","three"];
+
+        $.ajax({
+            url: "http://url_name_here.com",
+            type: "POST",
+            data: { myArray : arr }
+        }).done(function(data,text,jQxhr){
+       alert("success");
+    });
+    });
+    </script>
+
+</head>
+
+<body>
+    <h3>Elias Paula and Sean Store</h3>
+
+
+
+    <script>
+            
+            // cart array DONE
+            // Item function DONE
+            // addItemToCart DONE
+            // removeItemFromCart
+            // clearCart
+            // 
+
+            var cart = []; // holds all the items in the cart
+
+            var Item = function(name, price, quantity) {  // object: set of info for each item
+                this.name = name,
+                this.price = price, 
+                this.quantity = quantity
+            }
+            
+            function addItemToCart(name, price, quantity) {
+                for ( var i in cart ) {
+                    if ( cart[i].name === name ) {
+                        cart[i].quantity += quantity;
+                        return;
+                    }
+                }
+                var item = new Item(name, price, quantity);
+                cart.push(item);
+            };
+
+            
+
+            console.log(cart);
+            
+            
+            // removeItemFromCart
+
+            // removeItemFromCartAll
+
+            // clearCart
+
+            // countCart
+
+            // totalCart
+
+            // 
+
+
+    </script>
+
+<div class="boxed">
+    <img src="kobetshirt.jpg" width="300" height="300" alt="kobe t-shirt">
+    <p><input type="button" value="Add to Cart" onclick="addItemToCart("kobeshirt", 24.99, 1)"></p>
+</div>
+
+<div>
+    <input type="button" value="Purchase">
+</div>
+
+</body>
+</html>
