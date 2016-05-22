@@ -9,80 +9,80 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-    <script>
-    $(document).ready(function(){
-
-                $("button").click(function(){
-
-                    $.ajax({
-                        type:'post',
-                        url:'enterphpfilelocationhere.php',
-                        data: JSON.stringify(cart),
-                        success : ...
-                    });
-                })
-            });  
-    </script>
 </head>
 
 <body>
-    <h3>Elias Paula and Sean Store</h3>
-
-
-
     <script>
-            
-            // cart array DONE
-            // Item function DONE
-            // addItemToCart DONE
-            // removeItemFromCart
-            // clearCart
-            // 
+        var cart = []; // holds all the items in the cart
 
-            var cart = []; // holds all the items in the cart
-
-            var Item = function(name, price, quantity) {  // object: set of info for each item
-                this.name = name,
-                this.price = price, 
-                this.quantity = quantity
-            }
-            
-            function addItemToCart(name, price, quantity) {
-                for ( var i in cart ) {
-                    if ( cart[i].name === name ) {
-                        cart[i].quantity += quantity;
-                        return;
-                    }
+        var Item = function(name, price, quantity) {  // object: set of info for each item
+            this.name = name,
+            this.price = price, 
+            this.quantity = quantity
+        }
+        
+        function addItemToCart(name, price, quantity) {
+            for ( var i in cart ) {
+                if ( cart[i].name === name ) {
+                    cart[i].quantity += quantity;
+                    return;
                 }
-                var item = new Item(name, price, quantity);
-                cart.push(item);
-            };
+            }
+            var item = new Item(name, price, quantity);
+            cart.push(item);
+        };
 
-            
-            
-            // removeItemFromCart
+        function clearCart() {
+            cart = [];
+        };
 
-            // removeItemFromCartAll
+        function displayQuantity(){
+        document.getElementById(cart1).textContent = cart[0].quantity;
+        return;
+        };
 
-            // clearCart
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.ajax({
+                    type:'post',
+                    url:'enterphpfilelocationhere.php',
+                    data: JSON.stringify(cart),
+                    fail: function() {
+                        // If the request failed to send to the server.
+                    },
+                    success : function(response) {
+                        // do something with the response.
+                    }
+                });
+            })
+        });
 
-            // countCart
-
-            // totalCart
-
-            // 
-
+        function cartTotal() {
+            var a = 0;
+            for(var i = 0; cart.length; i++) {
+                var a += (cart[i].price * cart[i].quantity);
+            }
+            return a;
+        };
     </script>
 
-<div class="boxed">
-    <img src="kobeshirt.jpg" width="300" height="300" alt="kobe t-shirt">
-    <p><input type="button" value="Add to Cart" onclick="addItemToCart('kobeshirt', 24.99, 1)"></p>
-</div>
+    <h3 style="text-indent: 110px">The ElPaSe Store</h3>
 
-
-<input type="submit" id="button" name="submit" value="Submit">
-
-
-
+    <div style="width: 100%; overflow: hidden;">
+        <div class="boxed" style="width: 350px; text-align: center; float: left">
+            <img src="kobeshirt.jpg" width="300" height="300" alt="kobe t-shirt">
+            <figcaption>Nike Kobe Shirt - $24.99</figcaption>
+            <p><input type="button" value="Add to Cart" onclick="addItemToCart('kobeshirt', 24.99, 1)" onclick="displayQuantity()" style="vertical-align: middle"></p>
+            <p><input type=button value="Clear Cart" onclick="clearCart()"></p>
+        </div>
+        <div class="boxed" style="width: 350px; text-align: center; margin-left: 450px;">
+            <h3>Your Cart</h3>
+            Quantity:<td id="cart1"></br>
+            Total:<td id="cart2">
+        </div>
+    </div>
+    <p style="text-indent: 135px">
+    <input type="submit" id="button" name="submit" value="Place Order">
+    </p>
 </body>
 </html>
