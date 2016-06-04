@@ -6,51 +6,103 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
    <style type="text/css">
-   body           { font-family: Helvetica; 
+   body           { font-family: Helvetica, sans-serif; 
                     font-size: 20px;
-                    font-color: #b2b2b2;
-                    background-color: #4c4c4c; }
-   a              { color: #b2b2b2;}
-   li             { display: inline;}
-   li: hover      { background-color: #555;
+                    font-color: #FFFFFF;
+                    background-image: url("LAMap2.png");
+                    background-size: cover; 
+                    }
+   a              { color: #b2b2b2; }
+   li             { display: inline; }
+   li: hover      { background-color: #888;
                     color: white; }
    div.InnerBound { position: center;
                     padding: 100px 10%; }
    .Logo          { margin: 0 auto;
-                    text-align: center;}
+                    text-align: center; }
+    #left         { float: left;
+                    width: 35%;
+                    overflow: hidden; 
+                    color: #888;}
+    #right        { float: right;
+                    width: 40%;
+                    height: 150px;
+                    margin-top: 110px;
+                    overflow: hidden; 
+                    color: #999;}
+    input[type="button"] {
+                border: 0;
+                padding: 10px;
+                font-size: 10px;
+                color: white; 
+                background: black;
    </style>
 </head>
 <body>
   <div class="header">
       <div class="Logo">
-      <image src="logo.jpg" alt="G-Shirtz" height="90" width="200"></image>
-      <nav>
-        <a href="#" class="About">About</a>
-        <a href="#" class="Shop">Shop</a>
-        <a href="#" class="Contact">Contact</a>
-      </nav>
+        <image src="logo.jpg" alt="G-Shirtz" height="90" width="200"></image>
+        <nav>
+          <a href="#" class="About">About</a>
+          <a href="#" class="Shop">Shop</a>
+          <a href="#" class="Contact">Contact</a>
+        </nav>
       </div>
   </div>
   <div class="ContentHolder">
       <div class="OuterBound">
-          <div class ="InnerBound">
+          <div class ="InnerBound" id="left">
              <ul>
                  <li>
                     <img src="G1.jpg" alt="TShirt with G" height="200" width="190">
                     <figcaption align="left">G-Shirt #1 - $14.99</figcaption>
-                    <input type="button" value="Add to Cart" onclick="addItemToCart('gshirt1', 14.99, 1)" onclick="displayQuantity()"></br>
+                    <input type="button" value="Add to Cart" onclick="addItemToCart('g-shirt1', 14.99, 1)" onclick="displayQuantity()"></br>
                  </li>
                  <li>
                     <img src="G2.jpg" alt="TShirt with G" height="200" width="190">
-                    <figcaption>G-Shirt#2 - $19.99</figcaption>
-                    <input type="button" value="Add to Cart" onclick="addItemToCart('gshirt2', 19.99, 1)" onclick="displayQuantity()"></br>
+                    <figcaption>G-Shirt #2 - $19.99</figcaption>
+                    <input type="button" value="Add to Cart" onclick="addItemToCart('g-shirt2', 19.99, 1)" onclick="displayQuantity()"></br>
                  </li>
                  <li>
                     <img src="G3.jpg" alt="TShirt with G" height="200" width="190">
-                    <figcaption>G-Shirt#3 - $24.99</figcaption>
-                    <input type="button" value="Add to Cart" onclick="addItemToCart('gshirt3', 24.99, 1)" onclick="displayQuantity()"></br>
+                    <figcaption>G-Shirt #3 - $24.99</figcaption>
+                    <input type="button" value="Add to Cart" onclick="addItemToCart('g-shirt3', 24.99, 1)" onclick="displayQuantity()"></br>
                  </li>
              </ul>    
+          </div>
+          <div id="right">
+            <table border=1>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th id="a1">G-shirt#1</th>
+                  <th id="a2">14.99</th>
+                  <th id="a3">0</th>
+                  <th id="a4">0</th>
+                </tr>
+                <tr>
+                  <th id="b1">G-shirt#2</th>
+                  <th id="b2">19.99</th>
+                  <th id="b3">0</th>
+                  <th id="b4">0</th>
+                </tr>
+                <tr>
+                  <th id="c1">G-shirt#3</th>
+                  <th id="c2">24.99 </th>
+                  <th id="c3">0</th>
+                  <th id="c4">0</th>
+                </tr>
+              </tbody>
+              <tfoot>
+              </tfoot>
+            </table>
           </div>
           <p style="text-indent: 135px">
              <input type="button" value="Clear Cart" onclick="clearCart()">
@@ -60,7 +112,7 @@
             <p id="total"></p>    
           </p>
           <p style="text-indent: 135px">
-          <input type="submit" id="button" name="submit" value="Place Order">
+          <input type="button" id="button" name="submit" value="Place Order">
           </p>      
       </div>
   </div>
@@ -87,6 +139,13 @@
 
     function clearCart() {
         cart = [];
+        var abc = 0;
+        document.getElementById("a3").textContent = abc;
+        document.getElementById("a4").textContent = abc;
+        document.getElementById("b3").textContent = abc;
+        document.getElementById("b4").textContent = abc;
+        document.getElementById("c3").textContent = abc;
+        document.getElementById("c4").textContent = abc;
     };
 
 
@@ -124,10 +183,63 @@
                 success : function(response) {
                     // do something with the response.
                 }
-          }
           });
         })
     });  
+
+  //create a loop function 
+    function displayInCart() {
+
+      var a = cart[0].name;
+      document.getElementById("a1").textContent = a;
+      
+      var b = cart[0].price;
+      document.getElementById("a2").textContent = b;
+
+      var c = cart[0].quantity;
+      document.getElementById("a3").textContent = c;
+
+      var d = cart[1].name;
+      document.getElementById("b1").textContent = d;
+      
+      var e = cart[1].price;
+      document.getElementById("b2").textContent = e;
+
+      var f = cart[1].quantity;
+      document.getElementById("b3").textContent = f;
+
+      var g = cart[2].name;
+      document.getElementById("c1").textContent = g;
+
+      var h = cart[2].price;
+      document.getElementById("c2").textContent = h;
+
+      var i = cart[2].quantity;
+      document.getElementById("c3").textContent = i;
+    }
+    //Need to create a loop for myFunction1()
+    function myFunction1() {
+      var x = cart[0].price;
+      var y = cart[0].quantity;
+      var z = (x * y);
+      var z1 = z.toFixed(2)
+      document.getElementById("a4").textContent = z1;
+    
+      var u = cart[1].price;
+      var v = cart[1].quantity;
+      var w = (u * v);
+      var w1 = w.toFixed(2)
+      document.getElementById("b4").textContent = w1;
+
+      var r = cart[2].price;
+      var s = cart[2].quantity;
+      var t = (r * s);
+      var t1 = t.toFixed(2)
+      document.getElementById("c4").textContent = t1;
+    }
+
+  </script>
+  <button onclick="displayInCart(); myFunction1();">CLICK</button>
   </script>
 </body>
 </html>
