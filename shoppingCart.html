@@ -4,43 +4,7 @@
    <meta charset="utf-8">
    <title>Welcome</title>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-   <style type="text/css">
-   body           { font-family: Helvetica, sans-serif; 
-                    font-size: 17px;
-                    font-color: #FFFFFF;
-                    background-image: url("LAMap2.png");
-                    background-size: cover; 
-                    }
-   a              { color:#F3C61C; }
-   a:hover        { color: grey; }
-   li             { display: inline; }
-   li: hover      { background-color: #888;
-                    color: white; }
-   div.InnerBound { position: center;
-                    padding: 100px 10%; }
-   .Logo          { margin: 25 auto;
-                    text-align: center; }
-    #left         { float: left;
-                    width: 35%;
-                    overflow: hidden; 
-                    color: #888;}
-    #right        { float: right;
-                    width: 40%;
-                    height: 150px;
-                    margin-top: 120px;
-                    overflow: hidden; 
-                    color: #999; }
-    input[type="button"] 
-                  { border: 10;
-                    padding: 2px 6px 2px 6px;
-                    font-size: 10px;
-                    color: white; 
-                    background: black;
-                    align: center; }
-    p             { color: white; }
-    .fixed        { position: fixed; }
-   </style>
+   <link href="shoppingCartStyles.css" rel="stylesheet">
 </head>
 <body>
   <div class="header">
@@ -153,25 +117,6 @@
         document.getElementById("total").textContent = zero;
     };
 
-
-    function displayQuantity(){
-        document.getElementById(cart1).textContent = cart[0].quantity;
-        return;
-    };
-
-    function totalCart() { // -> return total cost
-                var totalCo = document.getElementById('total');
-                var totalCost = 0;
-                for (var i in cart) {
-                    totalCost += (cart[i].quantity * cart[i].price);
-                }
-                return totalCost;
-                totalCo.textContent = totalCost;
-                }
-
-    document.getElementById('totalbutton').addEventListener('click',
-        totalCart);
-
     $(document).ready(function(){
         $("button").click(function(){
           var postData = {
@@ -199,9 +144,7 @@
         var price = cart[i].price;
         var quantity = cart[i].quantity;
         var subCost = price * quantity;
-        //var subCostParsed = parseFloat(subCost);
         var subCostFixed = subCost.toFixed(2)
-        //var subCostParsedFixed = subCostParsed.toFixed(2)
         var subCostFixedParsed = parseFloat(subCostFixed);
         totalCost += subCostFixedParsed;
         if(i == 0){
