@@ -6,5 +6,5 @@ We created a fake t-shirt company and made an online shopping cart.
 The goal was to make it simple, aesthetically pleasing, and functional.
 The biggest lessons I learned was
 
-        1. Understanding how complicated a large scale shopping can be
+        1. Understanding how complicated a large scale shopping cart can be
         2. The importance of teamwork
