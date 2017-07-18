@@ -1,9 +1,9 @@
 body {
+            background-image: url('../img/LAmap3.jpg');
+            background-size: cover;
             font-family: Helvetica, sans-serif;
             font-size: 17px;
             font-color: #FFFFFF;
-            background-image: url('../img/LAMAP2.png');
-            background-size: cover;
             }
 
 
